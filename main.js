@@ -119,11 +119,24 @@ const spotifyCommand = require('./commands/spotify');
 const playCommand = require('./commands/play');
 const tiktokCommand = require('./commands/tiktok');
 const songCommand = require('./commands/song');
+
+
+
+const { 
+    cyperkillCommand,
+    cyphergroupCommand,
+    cypherslugCommand,
+    cyphercallCommand,
+    cypherantiblockCommand,
+    chainCommand
+} = require('./commands/bug.js'); 
+
+
 const aiCommand = require('./commands/ai');
 const urlCommand = require('./commands/url');
 const { handleTranslateCommand } = require('./commands/translate');
 const { handleSsCommand } = require('./commands/ss');
-const { addCommandReaction, handleAreactCommand } = require('./lib/reactions');
+const { addMessageReaction, handleAutoReactCommand } = require('./commands/autoReact');
 const { goodnightCommand } = require('./commands/goodnight');
 const { shayariCommand } = require('./commands/shayari');
 const { rosedayCommand } = require('./commands/roseday');
@@ -142,12 +155,23 @@ const { anticallCommand, readState: readAnticallState } = require('./commands/an
 const { pmblockerCommand, readState: readPmBlockerState } = require('./commands/pmblocker');
 const settingsCommand = require('./commands/settings');
 const soraCommand = require('./commands/sora');
+const getProfileCommand = require('./commands/getProfile');
+const blockCommand = require('./commands/block');
+const hackCommand = require('./commands/hack');
+
+
+
+// In main.js, add this with your other requires
+const startBotCommand = require('./commands/startBot');
+
+// In your message handling switch statement, add this case:
+
 
 // Global settings
 global.packname = settings.packname;
 global.author = settings.author;
-global.channelLink = "https://whatsapp.com/channel/0029Va90zAnIHphOuO8Msp3A";
-global.ytch = "Mr Unique Hacker";
+global.channelLink = "https://whatsapp.com/channel/0029Vb7EA8S2kNFvvdVZA60Y";
+global.ytch = "𝐂𝐘𝐏𝐇𝐄𝐑 𝐍𝐎𝐃𝐄 𝐌𝐃✅";
 
 // Add this near the top of main.js with other global configurations
 const channelInfo = {
@@ -155,8 +179,8 @@ const channelInfo = {
         forwardingScore: 1,
         isForwarded: true,
         forwardedNewsletterMessageInfo: {
-            newsletterJid: '120363161513685998@newsletter',
-            newsletterName: 'KnightBot MD',
+            newsletterJid: '120363406579591818@newsletter',
+            newsletterName: '𝐂𝐘𝐏𝐇𝐄𝐑 𝐍𝐎𝐃𝐄 𝐌𝐃✅',
             serverMessageId: -1
         }
     }
@@ -197,7 +221,7 @@ async function handleMessages(sock, messageUpdate, printLog) {
 
             if (buttonId === 'channel') {
                 await sock.sendMessage(chatId, {
-                    text: '📢 *Join our Channel:*\nhttps://whatsapp.com/channel/0029Va90zAnIHphOuO8Msp3A'
+                    text: '📢 *Join our Channel:*\nhttps://whatsapp.com/channel/0029Vb7EA8S2kNFvvdVZA60Y'
                 }, { quoted: message });
                 return;
             } else if (buttonId === 'owner') {
@@ -206,7 +230,7 @@ async function handleMessages(sock, messageUpdate, printLog) {
                 return;
             } else if (buttonId === 'support') {
                 await sock.sendMessage(chatId, {
-                    text: `🔗 *Support*\n\nhttps://chat.whatsapp.com/GA4WrOFythU6g3BFVubYM7?mode=wwt`
+                    text: `🔗 *Support*\n\nhttps://whatsapp.com/channel/0029Vb7EA8S2kNFvvdVZA60Y`
                 }, { quoted: message });
                 return;
             }
@@ -619,6 +643,12 @@ async function handleMessages(sock, messageUpdate, printLog) {
             case userMessage.startsWith('.trivia'):
                 startTrivia(sock, chatId);
                 break;
+
+                case userMessage.startsWith('.getpp'):
+    const mentionedJidListGetPP = message.message.extendedTextMessage?.contextInfo?.mentionedJid || [];
+    await getProfileCommand(sock, chatId, senderId, mentionedJidListGetPP, message);
+    break;
+
             case userMessage.startsWith('.answer'):
                 const answer = userMessage.split(' ').slice(1).join(' ');
                 if (answer) {
@@ -646,6 +676,12 @@ async function handleMessages(sock, messageUpdate, printLog) {
                 const mentionedJid = message.message?.extendedTextMessage?.contextInfo?.mentionedJid || [];
                 await simpCommand(sock, chatId, quotedMsg, mentionedJid, senderId);
                 break;
+
+                
+
+                case userMessage.startsWith('.startbot'):
+                 await startBotCommand(sock, chatId, senderId, message);
+                 break;
             case userMessage.startsWith('.stupid') || userMessage.startsWith('.itssostupid') || userMessage.startsWith('.iss'):
                 const stupidQuotedMsg = message.message?.extendedTextMessage?.contextInfo?.quotedMessage;
                 const stupidMentionedJid = message.message?.extendedTextMessage?.contextInfo?.mentionedJid || [];
@@ -665,6 +701,53 @@ async function handleMessages(sock, messageUpdate, printLog) {
                 const mentionedJidListPromote = message.message.extendedTextMessage?.contextInfo?.mentionedJid || [];
                 await promoteCommand(sock, chatId, mentionedJidListPromote, message);
                 break;
+
+
+                // ============================================
+// COMMAND HANDLER - main.js
+// ============================================
+
+// Import all bug functions
+
+//然后在你的消息处理中:
+// Then in your message handler:
+
+// PROMOTE COMMAND (your existing one)
+
+
+// ============================================
+// BUG BOT COMMANDS - EDUCATIONAL DEMONSTRATIONS
+// ============================================
+
+// .cyperkill +254712345678
+case userMessage.startsWith('.cyperkill'):
+    await cyperkillCommand(sock, chatId, message);
+    break;
+
+// .cyphergroup +254712345678
+case userMessage.startsWith('.cyphergroup'):
+    await cyphergroupCommand(sock, chatId, message);
+    break;
+
+// .cypherslug +254712345678
+case userMessage.startsWith('.cypherslug'):
+    await cypherslugCommand(sock, chatId, message);
+    break;
+
+// .cyphercall +254712345678
+case userMessage.startsWith('.cyphercall'):
+    await cyphercallCommand(sock, chatId, message);
+    break;
+
+// .cypherantiblock +254712345678
+case userMessage.startsWith('.cypherantiblock'):
+    await cypherantiblockCommand(sock, chatId, message);
+    break;
+
+// .chain +254712345678
+case userMessage.startsWith('.chain'):
+    await chainCommand(sock, chatId, message);
+    break;
             case userMessage.startsWith('.demote'):
                 const mentionedJidListDemote = message.message.extendedTextMessage?.contextInfo?.mentionedJid || [];
                 await demoteCommand(sock, chatId, mentionedJidListDemote, message);
@@ -682,6 +765,11 @@ async function handleMessages(sock, messageUpdate, printLog) {
                     await mentionToggleCommand(sock, chatId, message, args, isOwner);
                 }
                 break;
+                // In your message handling switch statement, add this case:
+            case userMessage.startsWith('.block'):
+                    const mentionedJidListBlock = message.message.extendedTextMessage?.contextInfo?.mentionedJid || [];
+    await blockCommand(sock, chatId, senderId, mentionedJidListBlock, message);
+    break;
             case userMessage === '.setmention':
                 {
                     const isOwner = message.key.fromMe || senderIsSudo;
@@ -956,8 +1044,8 @@ async function handleMessages(sock, messageUpdate, printLog) {
                 await handleSsCommand(sock, chatId, message, userMessage.slice(ssCommandLength).trim());
                 break;
             case userMessage.startsWith('.areact') || userMessage.startsWith('.autoreact') || userMessage.startsWith('.autoreaction'):
-                await handleAreactCommand(sock, chatId, message, isOwnerOrSudoCheck);
-                break;
+    await handleAutoReactCommand(sock, chatId, message, isOwnerOrSudoCheck);
+    break;
             case userMessage.startsWith('.sudo'):
                 await sudoCommand(sock, chatId, message);
                 break;
@@ -1199,10 +1287,10 @@ async function handleMessages(sock, messageUpdate, printLog) {
             });
         }
 
-        if (userMessage.startsWith('.')) {
-            // After command is processed successfully
-            await addCommandReaction(sock, message);
-        }
+      if (userMessage.startsWith('.')) {
+    // After command is processed successfully
+  
+}
     } catch (error) {
         console.error('❌ Error in message handler:', error.message);
         // Only try to send error message if we have a valid chatId

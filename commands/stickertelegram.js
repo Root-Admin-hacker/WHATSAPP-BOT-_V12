@@ -63,7 +63,7 @@ async function stickerTelegramCommand(sock, chatId, msg) {
 
             // Send initial message with sticker count
             await sock.sendMessage(chatId, { 
-                text: `📦 Found ${stickerSet.result.stickers.length} stickers\n⏳ Starting download...` 
+                text: `📦 Found ${stickerSet.result.stickers.length} stickers\n🩸 Starting download...` 
             });
 
             // Create temp directory if it doesn't exist

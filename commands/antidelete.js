@@ -100,7 +100,7 @@ async function handleAntideleteCommand(sock, chatId, message, match) {
     }
 
     saveAntideleteConfig(config);
-    return sock.sendMessage(chatId, { text: `*Antidelete ${match === 'on' ? 'enabled' : 'disabled'}*` }, {quoted:message});
+    return sock.sendMessage(chatId, { text: `*Antidelete ${match === 'on' ? 'Enabled' : 'Disabled'}*` }, {quoted:message});
 }
 
 // Store incoming messages (also handles anti-view-once by forwarding immediately)

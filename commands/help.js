@@ -5,9 +5,9 @@ const path = require('path');
 async function helpCommand(sock, chatId, message) {
     const helpMessage = `
 ╔═══════════════════╗
-   *🤖 ${settings.botName || 'KnightBot-MD'}*  
+   *🤖 ${settings.botName || 'CypherNode-MD'}*  
    Version: *${settings.version || '3.0.0'}*
-   by ${settings.botOwner || 'Mr Unique Hacker'}
+   by ${settings.botOwner || '𝐂𝐘𝐏𝐇𝐄𝐑 𝐍𝐎𝐃𝐄 𝐌𝐃✅'}
    YT : ${global.ytch}
 ╚═══════════════════╝
 
@@ -84,6 +84,7 @@ async function helpCommand(sock, chatId, message) {
 ║ ➤ .pmblocker setmsg <text>
 ║ ➤ .setmention <reply to msg>
 ║ ➤ .mention <on/off>
+║ ➤ .block <reply to user massage>
 ╚═══════════════════╝
 
 ╔═══════════════════╗
@@ -100,6 +101,8 @@ async function helpCommand(sock, chatId, message) {
 ║ ➤ .emojimix <emj1>+<emj2>
 ║ ➤ .igs <insta link>
 ║ ➤ .igsc <insta link>
+║ ➤ .getpp <reply to user massage>
+║
 ╚═══════════════════╝  
 
 ╔═══════════════════╗
@@ -135,6 +138,7 @@ async function helpCommand(sock, chatId, message) {
 ╔═══════════════════╗
 🎯 *Fun Commands*:
 ║ ➤ .compliment @user
+║ ➤ .hack <Fake hacking text>
 ║ ➤ .insult @user
 ║ ➤ .flirt 
 ║ ➤ .shayari
@@ -214,12 +218,12 @@ async function helpCommand(sock, chatId, message) {
 ╚═══════════════════╝
 
 ╔═══════════════════╗
-💻 *Github Commands:*
-║ ➤ .git
-║ ➤ .github
-║ ➤ .sc
-║ ➤ .script
-║ ➤ .repo
+💻 
+║ 
+║ 
+║ *More updates Coming soon*
+║ 
+║ 
 ╚═══════════════════╝
 
 Join our channel for updates:`;
@@ -237,8 +241,8 @@ Join our channel for updates:`;
                     forwardingScore: 1,
                     isForwarded: true,
                     forwardedNewsletterMessageInfo: {
-                        newsletterJid: '120363161513685998@newsletter',
-                        newsletterName: 'KnightBot MD',
+                        newsletterJid: '120363406579591818@newsletter',
+                        newsletterName: '𝐂𝐘𝐏𝐇𝐄𝐑 𝐍𝐎𝐃𝐄 𝐌𝐃✅',
                         serverMessageId: -1
                     }
                 }
@@ -251,8 +255,8 @@ Join our channel for updates:`;
                     forwardingScore: 1,
                     isForwarded: true,
                     forwardedNewsletterMessageInfo: {
-                        newsletterJid: '120363161513685998@newsletter',
-                        newsletterName: 'KnightBot MD by Mr Unique Hacker',
+                        newsletterJid: '120363406579591818@newsletter',
+                        newsletterName: '𝐂𝐘𝐏𝐇𝐄𝐑 𝐍𝐎𝐃𝐄 𝐌𝐃✅ by 𝐂𝐘𝐏𝐇𝐄𝐑 𝐍𝐎𝐃𝐄 𝐌𝐃✅',
                         serverMessageId: -1
                     } 
                 }
