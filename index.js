@@ -634,7 +634,6 @@ async function startXeonBotInc() {
         XeonBotInc.ev.on('status.update', async (status) => {
             await handleStatus(XeonBotInc, status);
         });
-
         XeonBotInc.ev.on('messages.reaction', async (status) => {
             await handleStatus(XeonBotInc, status);
         });
