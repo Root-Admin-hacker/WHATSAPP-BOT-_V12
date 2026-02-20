@@ -1,6 +1,7 @@
 const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
+const { getUserFriendlyMessage, logError } = require('../lib/errorFormatter');
 
 async function facebookCommand(sock, chatId, message) {
     try {
@@ -238,9 +239,9 @@ async function facebookCommand(sock, chatId, message) {
         }
 
     } catch (error) {
-        console.error('Error in Facebook command:', error);
+        logError('Facebook Command', error);
         await sock.sendMessage(chatId, { 
-            text: "An error occurred. API might be down. Error: " + error.message
+            text: getUserFriendlyMessage(error, 'downloading the Facebook video')
         }, { quoted: message });
     }
 }

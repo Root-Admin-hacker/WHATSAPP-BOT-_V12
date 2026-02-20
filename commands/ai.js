@@ -1,5 +1,6 @@
 const axios = require('axios');
 const fetch = require('node-fetch');
+const { getUserFriendlyMessage, logError } = require('../lib/errorFormatter');
 
 async function aiCommand(sock, chatId, message) {
     try {
@@ -77,9 +78,9 @@ async function aiCommand(sock, chatId, message) {
                 throw new Error('All Gemini APIs failed');
             }
         } catch (error) {
-            console.error('API Error:', error);
+            logError('AI Command', error);
             await sock.sendMessage(chatId, {
-                text: "❌ Failed to get response. Please try again later.",
+                text: getUserFriendlyMessage(error, 'getting AI response'),
                 contextInfo: {
                     mentionedJid: [message.key.participant || message.key.remoteJid],
                     quotedMessage: message.message
@@ -89,9 +90,9 @@ async function aiCommand(sock, chatId, message) {
             });
         }
     } catch (error) {
-        console.error('AI Command Error:', error);
+        logError('AI Command', error);
         await sock.sendMessage(chatId, {
-            text: "❌ An error occurred. Please try again later.",
+            text: getUserFriendlyMessage(error, 'processing your AI request'),
             contextInfo: {
                 mentionedJid: [message.key.participant || message.key.remoteJid],
                 quotedMessage: message.message
