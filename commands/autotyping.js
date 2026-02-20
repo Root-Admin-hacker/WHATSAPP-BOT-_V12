@@ -31,8 +31,8 @@ async function autotypingCommand(sock, chatId, message) {
                     forwardingScore: 1,
                     isForwarded: true,
                     forwardedNewsletterMessageInfo: {
-                        newsletterJid: '120363406579591818@newsletter',
-                        newsletterName: '𝐂𝐘𝐏𝐇𝐄𝐑 𝐍𝐎𝐃𝐄 𝐌𝐃✅',
+                        newsletterJid: 'https://github.com/Root-Admin-hacker/WHATSAPP-BOT-_V12',
+                        newsletterName: '🅡🅞🅞🅣_🅐🅓🅜🅘🅝 🅘 ✅',
                         serverMessageId: -1
                     }
                 }
@@ -61,9 +61,9 @@ async function autotypingCommand(sock, chatId, message) {
                     contextInfo: {
                         forwardingScore: 1,
                         isForwarded: true,
-                        forwardedNewsletterMessageInfo: {
-                            newsletterJid: '120363406579591818@newsletter',
-                            newsletterName: '𝐂𝐘𝐏𝐇𝐄𝐑 𝐍𝐎𝐃𝐄 𝐌𝐃✅',
+                            forwardedNewsletterMessageInfo: {
+                            newsletterJid: 'https://github.com/Root-Admin-hacker/WHATSAPP-BOT-_V12',
+                            newsletterName: '🅡🅞🅞🅣_🅐🅓🅜🅘🅝 🅘 ✅',
                             serverMessageId: -1
                         }
                     }
@@ -84,11 +84,11 @@ async function autotypingCommand(sock, chatId, message) {
             contextInfo: {
                 forwardingScore: 1,
                 isForwarded: true,
-                forwardedNewsletterMessageInfo: {
-                    newsletterJid: '120363406579591818@newsletter',
-                    newsletterName: '𝐂𝐘𝐏𝐇𝐄𝐑 𝐍𝐎𝐃𝐄 𝐌𝐃✅',
-                    serverMessageId: -1
-                }
+                    forwardedNewsletterMessageInfo: {
+                        newsletterJid: 'https://github.com/Root-Admin-hacker/WHATSAPP-BOT-_V12',
+                        newsletterName: '🅡🅞🅞🅣_🅐🅓🅜🅘🅝 🅘 ✅',
+                        serverMessageId: -1
+                    }
             }
         });
         
@@ -96,15 +96,15 @@ async function autotypingCommand(sock, chatId, message) {
         console.error('Error in autotyping command:', error);
         await sock.sendMessage(chatId, {
             text: '❌ Error processing command!',
-            contextInfo: {
-                forwardingScore: 1,
-                isForwarded: true,
-                forwardedNewsletterMessageInfo: {
-                    newsletterJid: '120363406579591818@newsletter',
-                    newsletterName: '𝐂𝐘𝐏𝐇𝐄𝐑 𝐍𝐎𝐃𝐄 𝐌𝐃✅',
-                    serverMessageId: -1
+                contextInfo: {
+                    forwardingScore: 1,
+                    isForwarded: true,
+                    forwardedNewsletterMessageInfo: {
+                        newsletterJid: 'https://github.com/Root-Admin-hacker/WHATSAPP-BOT-_V12',
+                        newsletterName: '🅡🅞🅞🅣_🅐🅓🅜🅘🅝 🅘 ✅',
+                        serverMessageId: -1
+                    }
                 }
-            }
         });
     }
 }

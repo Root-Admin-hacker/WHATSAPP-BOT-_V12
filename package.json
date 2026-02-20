@@ -1,8 +1,10 @@
 {
-  "name": "WHATSAPP-BOT-V12",
+  "name": "whatsapp-bot-v12",
   "version": "12.1.0",
-  "description": "WhatsApp Bot",
+  "description": "WhatsApp Bot Optimized by ROOT_ADMIN I",
   "main": "index.js",
+  "author": "🅡🅞🅞🅣_🅐🅓🅜🅘🅝 🅘 ✅",
+  "homepage": "https://github.com/Root-Admin-hacker/WHATSAPP-BOT-_V12",
   "scripts": {
     "start": "node index.js",
     "start:optimized": "node --max-old-space-size=512 --optimize-for-size --gc-interval=100 index.js",
@@ -13,12 +15,14 @@
     "install:panel": "npm install --legacy-peer-deps",
     "install:force": "npm install --force",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "docker:build": "docker build -t docker run -e SESSION_ID=$SESSION_ID CypherNode"
+    "docker:build": "docker build -t root-admin-bot .",
+    "docker:run": "docker run --rm -e SESSION_ID=$SESSION_ID root-admin-bot"
   },
   "keywords": [
-    "whatsapp-bot"
+    "whatsapp-bot",
+    "root-admin-i",
+    "baileys-bot"
   ],
-  "author": "",
   "license": "ISC",
   "dependencies": {
     "@adiwajshing/keyed-db": "^0.2.4",

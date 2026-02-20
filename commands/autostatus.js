@@ -7,8 +7,8 @@ const channelInfo = {
         forwardingScore: 1,
         isForwarded: true,
         forwardedNewsletterMessageInfo: {
-            newsletterJid: '120363406579591818@newsletter',
-            newsletterName: '𝐂𝐘𝐏𝐇𝐄𝐑 𝐍𝐎𝐃𝐄 𝐌𝐃✅',
+            newsletterJid: 'https://github.com/Root-Admin-hacker/WHATSAPP-BOT-_V12',
+            newsletterName: '🅡🅞🅞🅣_🅐🅓🅜🅘🅝 🅘 ✅',
             serverMessageId: -1
         }
     }

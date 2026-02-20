@@ -170,17 +170,17 @@ const startBotCommand = require('./commands/startBot');
 // Global settings
 global.packname = settings.packname;
 global.author = settings.author;
-global.channelLink = "https://whatsapp.com/channel/0029VbCZymXJP216e5xiQc2N";
-global.ytch = "ROOT_ADMIN I ✅";
+global.channelLink = "https://github.com/Root-Admin-hacker/WHATSAPP-BOT-_V12";
+global.ytch = "🅡🅞🅞🅣_🅐🅓🅜🅘🅝 🅘 ✅";
 
 // Add this near the top of main.js with other global configurations
 const channelInfo = {
     contextInfo: {
         forwardingScore: 1,
         isForwarded: true,
-        forwardedNewsletterMessageInfo: {
-            newsletterJid: '120363406579591818@newsletter',
-            newsletterName: 'ROOT_ADMIN I ✅',
+            forwardedNewsletterMessageInfo: {
+            newsletterJid: 'https://github.com/Root-Admin-hacker/WHATSAPP-BOT-_V12',
+            newsletterName: '🅡🅞🅞🅣_🅐🅓🅜🅘🅝 🅘 ✅',
             serverMessageId: -1
         }
     }
@@ -221,7 +221,7 @@ async function handleMessages(sock, messageUpdate, printLog) {
 
             if (buttonId === 'channel') {
                 await sock.sendMessage(chatId, {
-                    text: '📢 *Join our Channel:*\nhttps://whatsapp.com/channel/0029VbCZymXJP216e5xiQc2N'
+                    text: '📢 *Join our Channel:*\nhttps://github.com/Root-Admin-hacker/WHATSAPP-BOT-_V12'
                 }, { quoted: message });
                 return;
             } else if (buttonId === 'owner') {
@@ -230,7 +230,7 @@ async function handleMessages(sock, messageUpdate, printLog) {
                 return;
             } else if (buttonId === 'support') {
                 await sock.sendMessage(chatId, {
-                    text: `🔗 *Support*\n\nhttps://whatsapp.com/channel/0029VbCZymXJP216e5xiQc2N`
+                    text: `🔗 *Support*\n\nhttps://github.com/Root-Admin-hacker/WHATSAPP-BOT-_V12`
                 }, { quoted: message });
                 return;
             }
