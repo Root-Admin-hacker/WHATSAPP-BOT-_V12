@@ -2,7 +2,7 @@ const settings = {
   packname: 'WHATSAPP-BOT V12✅',
   author: '‎',
   botName: "WHATSAAP BOT V12",
-  botOwner: 'Root-Admin-hacker ', // Your name
+  botOwner: 'Root-Admin', // Your name
   ownerNumber: '254731285839', //Set your number here without + symbol, just add country code & number without any space
   giphyApiKey: 'qnl7ssQChTdPjsKta2Ax2LMaGXz303tq',
   commandMode: "public",

@@ -1,3 +1,10 @@
+╔═══════════════════╗
+    🤖 WHATSAAP BOT V12
+    Version: 3.0.6
+    by Root-Admin
+    YT : 🅡🅞🅞🅣_🅐🅓🅜🅘🅝 🅘 ✅
+╚═══════════════════╝
+
 🅡🅞🅞🅣_🅐🅓🅜🅘🅝 🅘 ✅ WHATSAPP BOT V12
 
 This is a high-performance WhatsApp bot built on the Baileys library, customized and optimized by ROOT_ADMIN I. Designed for elite group management, security, and interactive fun.

@@ -170,7 +170,7 @@ const startBotCommand = require('./commands/startBot');
 // Global settings
 global.packname = settings.packname;
 global.author = settings.author;
-global.channelLink = "https://github.com/Root-Admin-hacker/WHATSAPP-BOT-_V12";
+    global.channelLink = "https://wa.me/254731285839";
 global.ytch = "🅡🅞🅞🅣_🅐🅓🅜🅘🅝 🅘 ✅";
 
 // Add this near the top of main.js with other global configurations
