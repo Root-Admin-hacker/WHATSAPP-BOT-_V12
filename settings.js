@@ -1,9 +1,9 @@
 const settings = {
-  packname: '𝐂𝐘𝐏𝐇𝐄𝐑 𝐍𝐎𝐃𝐄 ✅',
+  packname: 'WHATSAPP-BOT V12✅',
   author: '‎',
-  botName: "𝐂𝐘𝐏𝐇𝐄𝐑 𝐍𝐎𝐃𝐄 𝐕3",
-  botOwner: 'Cypher Node MD Admin ', // Your name
-  ownerNumber: '254787482014', //Set your number here without + symbol, just add country code & number without any space
+  botName: "WHATSAAP BOT V12",
+  botOwner: 'Root-Admin-hacker ', // Your name
+  ownerNumber: '254731285839', //Set your number here without + symbol, just add country code & number without any space
   giphyApiKey: 'qnl7ssQChTdPjsKta2Ax2LMaGXz303tq',
   commandMode: "public",
   maxStoreMessages: 20, 

@@ -1,4 +1,4 @@
-# 🤖 𝐂𝐘𝐏𝐇𝐄𝐑 𝐍𝐎𝐃𝐄 ✅
+# 🤖 ROOT_ADMIN I ✅
 
 This is a WhatsApp bot built using the Baileys library for group management, including features like tagging all members, muting/unmuting, and many more. It's designed to help admins efficiently manage WhatsApp groups.
 
@@ -10,7 +10,7 @@ This is a WhatsApp bot built using the Baileys library for group management, inc
 
 <div align="center"> 
   <a href="https://youtube.com/@mr_unique_hacker"> 
-    <img src="https://github.com/mruniquehacker/CypherNode-MD/blob/main/assets/bot_image.jpg" alt="𝐂𝐘𝐏𝐇𝐄𝐑 𝐍𝐎𝐃𝐄 ✅" height="300"> 
+    <img src="https://github.com/mruniquehacker/CypherNode-MD/blob/main/assets/bot_image.jpg" alt="ROOT_ADMIN I ✅" height="300"> 
   </a> 
 </div>
 
@@ -50,7 +50,7 @@ This is a WhatsApp bot built using the Baileys library for group management, inc
 
 ### Step 1: Fork the Repository
 
-Click the button below to fork the 𝐂𝐘𝐏𝐇𝐄𝐑 𝐍𝐎𝐃𝐄 ✅ repository to your GitHub account:
+Click the button below to fork the ROOT_ADMIN I ✅ repository to your GitHub account:
 
 <div align="center">
   <a href="https://github.com/mruniquehacker/CypherNode-MD/fork">

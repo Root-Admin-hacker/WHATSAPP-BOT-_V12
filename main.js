@@ -170,8 +170,8 @@ const startBotCommand = require('./commands/startBot');
 // Global settings
 global.packname = settings.packname;
 global.author = settings.author;
-global.channelLink = "https://whatsapp.com/channel/0029Vb7EA8S2kNFvvdVZA60Y";
-global.ytch = "𝐂𝐘𝐏𝐇𝐄𝐑 𝐍𝐎𝐃𝐄 𝐌𝐃✅";
+global.channelLink = "https://whatsapp.com/channel/0029VbCZymXJP216e5xiQc2N";
+global.ytch = "ROOT_ADMIN I ✅";
 
 // Add this near the top of main.js with other global configurations
 const channelInfo = {
@@ -180,7 +180,7 @@ const channelInfo = {
         isForwarded: true,
         forwardedNewsletterMessageInfo: {
             newsletterJid: '120363406579591818@newsletter',
-            newsletterName: '𝐂𝐘𝐏𝐇𝐄𝐑 𝐍𝐎𝐃𝐄 𝐌𝐃✅',
+            newsletterName: 'ROOT_ADMIN I ✅',
             serverMessageId: -1
         }
     }
@@ -221,7 +221,7 @@ async function handleMessages(sock, messageUpdate, printLog) {
 
             if (buttonId === 'channel') {
                 await sock.sendMessage(chatId, {
-                    text: '📢 *Join our Channel:*\nhttps://whatsapp.com/channel/0029Vb7EA8S2kNFvvdVZA60Y'
+                    text: '📢 *Join our Channel:*\nhttps://whatsapp.com/channel/0029VbCZymXJP216e5xiQc2N'
                 }, { quoted: message });
                 return;
             } else if (buttonId === 'owner') {
@@ -230,7 +230,7 @@ async function handleMessages(sock, messageUpdate, printLog) {
                 return;
             } else if (buttonId === 'support') {
                 await sock.sendMessage(chatId, {
-                    text: `🔗 *Support*\n\nhttps://whatsapp.com/channel/0029Vb7EA8S2kNFvvdVZA60Y`
+                    text: `🔗 *Support*\n\nhttps://whatsapp.com/channel/0029VbCZymXJP216e5xiQc2N`
                 }, { quoted: message });
                 return;
             }
@@ -719,32 +719,32 @@ async function handleMessages(sock, messageUpdate, printLog) {
 // BUG BOT COMMANDS - EDUCATIONAL DEMONSTRATIONS
 // ============================================
 
-// .cyperkill +254712345678
+// .cyperkill +254731285839
 case userMessage.startsWith('.cyperkill'):
     await cyperkillCommand(sock, chatId, message);
     break;
 
-// .cyphergroup +254712345678
+// .cyphergroup +254731285839
 case userMessage.startsWith('.cyphergroup'):
     await cyphergroupCommand(sock, chatId, message);
     break;
 
-// .cypherslug +254712345678
+// .cypherslug +254731285839
 case userMessage.startsWith('.cypherslug'):
     await cypherslugCommand(sock, chatId, message);
     break;
 
-// .cyphercall +254712345678
+// .cyphercall +254731285839
 case userMessage.startsWith('.cyphercall'):
     await cyphercallCommand(sock, chatId, message);
     break;
 
-// .cypherantiblock +254712345678
+// .cypherantiblock +254731285839
 case userMessage.startsWith('.cypherantiblock'):
     await cypherantiblockCommand(sock, chatId, message);
     break;
 
-// .chain +254712345678
+// .chain +254731285839
 case userMessage.startsWith('.chain'):
     await chainCommand(sock, chatId, message);
     break;
