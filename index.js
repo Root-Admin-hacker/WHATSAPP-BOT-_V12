@@ -1,11 +1,6 @@
 /**
  * 🅡🅞🅞🅣_🅐🅓🅜🅘🅝 🅘 ✅ - A WhatsApp Bot
  * Copyright (c) 2026 ROOT_ADMIN I
- * * This program is free software: you can redistribute it and/or modify
- * it under the terms of the MIT License.
- * * Credits:
- * - Baileys Library by @adiwajshing
- * - Pair Code implementation inspired by TechGod143 & DGXEON
  */
 require('./settings')
 const { Boom } = require('@hapi/boom')
@@ -66,84 +61,121 @@ function startWebServer() {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ROOT_ADMIN I ✅ Pairing</title>
+    <title>🅡🅞🅞🅣_🅐🅓🅜🅘🅝 🅘 ✅ Pairing</title>
     <style>
-        body { font-family: Arial, sans-serif; background: #000; color: #fff; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .container { background: #111; padding: 30px; border-radius: 12px; border: 1px solid #333; width: 90%; max-width: 400px; text-align: center; }
+        body { font-family: Arial, sans-serif; background: #0a0a0a; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; color: white; }
+        .container { background: #1a1a1a; padding: 30px; border-radius: 12px; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3); width: 90%; max-width: 400px; text-align: center; border: 1px solid #25D366; }
         h2 { color: #25D366; margin-bottom: 20px; }
-        input { width: 100%; padding: 12px; border: 2px solid #333; background: #000; color: #fff; border-radius: 8px; font-size: 16px; box-sizing: border-box; }
-        button { background: #25D366; color: #000; border: none; padding: 14px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 20px; }
-        .code-box { background: #222; border: 2px dashed #25D366; border-radius: 8px; padding: 20px; margin: 20px 0; font-size: 28px; font-weight: bold; letter-spacing: 4px; color: #25D366; }
+        .input-group { margin-bottom: 20px; text-align: left; }
+        label { display: block; margin-bottom: 6px; font-weight: 600; color: #ccc; }
+        input { width: 100%; padding: 12px; border: 2px solid #333; background: #000; border-radius: 8px; font-size: 16px; box-sizing: border-box; color: white; transition: border 0.3s; }
+        input:focus { border-color: #25D366; outline: none; }
+        button { background: #25D366; color: black; border: none; padding: 14px 20px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; width: 100%; transition: background 0.3s; }
+        button:hover { background: #1da851; }
+        .loading { display: none; margin-top: 20px; }
+        .code-box { background: #000; border: 2px dashed #25D366; border-radius: 8px; padding: 20px; margin: 20px 0; font-size: 28px; font-weight: bold; letter-spacing: 4px; color: #25D366; }
+        .footer { margin-top: 20px; font-size: 12px; color: #888; }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="app">
         <h2>🅡🅞🅞🅣_🅐🅓🅜🅘🅝 🅘 ✅</h2>
+        <p>Enter your number with country code.</p>
         <div id="form-view">
-            <input type="tel" id="phone" placeholder="e.g. 254731285839">
+            <div class="input-group">
+                <label for="phone">Phone Number (e.g. 254731...)</label>
+                <input type="tel" id="phone" placeholder="254731285839">
+            </div>
             <button onclick="submitNumber()">GET PAIRING CODE</button>
+        </div>
+        <div id="loading-view" class="loading">
+            <p>Stabilizing Connection... Please wait 10s</p>
         </div>
         <div id="code-view" style="display:none;">
             <div class="code-box" id="pairCode"></div>
-            <p>Enter this code in WhatsApp Linked Devices</p>
+            <p style="margin-top:15px; font-size:14px;">Open WhatsApp → Settings → Linked Devices → Link a Device</p>
         </div>
+        <div id="error-view" class="error" style="display:none; color: red;"></div>
+        <div class="footer">Powered By ROOT_ADMIN I</div>
     </div>
     <script>
         async function submitNumber() {
-            const phone = document.getElementById('phone').value.trim();
-            const response = await fetch('/generate', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ phoneNumber: phone })
-            });
-            const data = await response.json();
-            if (data.success) {
-                document.getElementById('form-view').style.display = 'none';
-                document.getElementById('pairCode').innerText = data.code;
-                document.getElementById('code-view').style.display = 'block';
-            }
+            const phone = document.getElementById('phone').value.trim().replace(/[^0-9]/g, '');
+            if (!phone) return alert('Enter phone number');
+            document.getElementById('form-view').style.display = 'none';
+            document.getElementById('loading-view').style.display = 'block';
+            try {
+                const response = await fetch('/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ phoneNumber: phone })
+                });
+                const data = await response.json();
+                document.getElementById('loading-view').style.display = 'none';
+                if (data.success) {
+                    document.getElementById('pairCode').innerText = data.code;
+                    document.getElementById('code-view').style.display = 'block';
+                } else {
+                    alert('Error: ' + data.error);
+                    location.reload();
+                }
+            } catch (err) { alert('Network error'); location.reload(); }
         }
     </script>
 </body>
-</html>
-        `);
+</html>`);
     });
 
     app.post('/generate', async (req, res) => {
-        let phoneNumber = req.body.phoneNumber || req.body.phone;
-        phoneNumber = phoneNumber.replace(/[^0-9]/g, '');
-        pendingPhoneNumber = phoneNumber;
+        let phoneNumber = req.body.phoneNumber?.replace(/[^0-9]/g, '');
+        if (!phoneNumber) return res.json({ success: false, error: 'Phone number required' });
         
-        pairingCodePromise = new Promise((resolve) => {
-            global.resolvePairing = (code) => resolve(code);
+        pendingPhoneNumber = phoneNumber;
+        pairingCodePromise = new Promise((resolve, reject) => {
+            const timeout = setTimeout(() => reject(new Error('Timeout')), 60000);
+            global.resolvePairing = (code) => { clearTimeout(timeout); resolve(code); };
+            global.rejectPairing = (err) => { clearTimeout(timeout); reject(err); };
         });
 
-        const code = await pairingCodePromise;
-        res.json({ success: true, code: code });
-        pendingPhoneNumber = null;
+        try {
+            const code = await pairingCodePromise;
+            res.json({ success: true, code });
+        } catch (err) {
+            res.json({ success: false, error: err.message });
+        } finally {
+            pendingPhoneNumber = null;
+        }
     });
 
-    webServer = app.listen(PORT, () => {
-        console.log(chalk.green(`🌐 Web pairing interface running at http://localhost:${PORT}`));
-    });
+    webServer = app.listen(PORT, () => console.log(chalk.green(`🌐 Server running at http://localhost:${PORT}`)));
 }
 
 function stopWebServer() {
     if (webServer) { webServer.close(); webServer = null; }
 }
 
+// ---------- Store & Memory ----------
 const store = require('./lib/lightweight_store')
 store.readFromFile()
 const settings = require('./settings')
+setInterval(() => store.writeToFile(), 10000)
 
-let owner = ["254731285839"]
-global.botname = "🅡🅞🅞🅣_🅐🅓🅜🅘🅝 🅘 ✅"; 
-global.themeemoji = "•"
+// RAM Management
+setInterval(() => { if (global.gc) global.gc() }, 60000)
+setInterval(() => {
+    const used = process.memoryUsage().rss / 1024 / 1024
+    if (used > 450) { console.log('⚠️ High RAM, Restarting...'); process.exit(1) }
+}, 30000)
+
+let phoneNumber = "254731285839"
+global.botname = "🅡🅞🅞🅣_🅐🅓🅜🅘🅝 🅘 ✅"
+const pairingCode = true
 
 async function startXeonBotInc() {
     try {
         let { version } = await fetchLatestBaileysVersion()
         const { state, saveCreds } = await useMultiFileAuthState(`./session`)
+        const msgRetryCounterCache = new NodeCache()
 
         const XeonBotInc = makeWASocket({
             version,
@@ -154,64 +186,89 @@ async function startXeonBotInc() {
                 creds: state.creds,
                 keys: makeCacheableSignalKeyStore(state.keys, pino({ level: "fatal" })),
             },
+            msgRetryCounterCache,
+            connectTimeoutMs: 60000,
+            defaultQueryTimeoutMs: 0,
+            keepAliveIntervalMs: 10000,
+            generateHighQualityLinkPreview: true,
         })
 
         XeonBotInc.ev.on('creds.update', saveCreds)
+        store.bind(XeonBotInc.ev)
 
-        // Handle pairing code logic
-        if (!XeonBotInc.authState.creds.registered) {
+        // Pairing Logic with Fix
+        if (pairingCode && !XeonBotInc.authState.creds.registered) {
             startWebServer()
             while (!pendingPhoneNumber) await delay(1000)
-            let code = await XeonBotInc.requestPairingCode(pendingPhoneNumber)
-            if (global.resolvePairing) global.resolvePairing(code)
+            
+            console.log(chalk.yellow("⏳ Stabilizing connection for 10s..."))
+            await delay(10000) // This prevents the 'Connection Closed' error
+
+            try {
+                let code = await XeonBotInc.requestPairingCode(pendingPhoneNumber)
+                code = code?.match(/.{1,4}/g)?.join("-") || code
+                if (global.resolvePairing) global.resolvePairing(code)
+                console.log(chalk.black.bgGreen(` CODE: ${code} `))
+            } catch (e) {
+                if (global.rejectPairing) global.rejectPairing(e)
+            }
         }
 
         XeonBotInc.ev.on('connection.update', async (s) => {
-            const { connection } = s
-            if (connection == "open") {
-                stopWebServer();
-                const botNumber = XeonBotInc.user.id.split(':')[0] + '@s.whatsapp.net';
-                await XeonBotInc.sendMessage(botNumber, {
-                    text: `🤖 🅑🅞🅣 🅒🅞🅝🅝🅔🅒🅣🅔🅓 🅢🅤🅒🅒🅔🅢🅕🅤🅛🅛🅨!\n\n✅ Owner: ROOT_ADMIN I\n✅ Channel: Join via Link`,
-                    contextInfo: {
-                        forwardingScore: 1,
-                        isForwarded: true,
-                        forwardedNewsletterMessageInfo: {
-                            newsletterJid: '120363321528766105@newsletter',
-                            newsletterName: '🅡🅞🅞🅣_🅐🅓🅜🅘🅝 🅘 ✅',
-                            serverMessageId: -1
-                        }
-                    }
-                });
-                console.log(chalk.bold.blue(`\n[ 🅡🅞🅞🅣_🅐🅓🅜🅘🅝 🅘 ✅ ]\n`))
-                console.log(chalk.magenta(`• YT: 🅡🅞🅞🅣_🅐🅓🅜🅘🅝 🅘 ✅`))
-                console.log(chalk.magenta(`• GITHUB: Root-Admin-hacker`))
-                console.log(chalk.magenta(`• WA: 254731285839`))
+            const { connection, lastDisconnect } = s
+            if (connection === 'open') {
+                stopWebServer()
+                console.log(chalk.green(`\n✅ 🅡🅞🅞🅣_🅐🅓🅜🅘🅝 🅘 ✅ CONNECTED`))
+                console.log(chalk.cyan(`OWNER: 254731285839`))
+            }
+            if (connection === 'close') {
+                let reason = new Boom(lastDisconnect?.error)?.output.statusCode
+                if (reason !== DisconnectReason.loggedOut) startXeonBotInc()
+                else { rmSync('./session', { recursive: true, force: true }); startXeonBotInc(); }
             }
         })
 
         XeonBotInc.ev.on('messages.upsert', async chatUpdate => {
-            const mek = chatUpdate.messages[0]
-            if (!mek.message) return
-            await handleMessages(XeonBotInc, chatUpdate, true).catch(async (err) => {
-                await XeonBotInc.sendMessage(mek.key.remoteJid, {
-                    text: '❌ Error processing message.',
-                    contextInfo: {
-                        forwardingScore: 1,
-                        isForwarded: true,
-                        forwardedNewsletterMessageInfo: {
-                            newsletterJid: '120363321528766105@newsletter',
-                            newsletterName: '🅡🅞🅞🅣_🅐🅓🅜🅘🅝 🅘 ✅'
-                        }
-                    }
-                });
-            });
+            try {
+                const mek = chatUpdate.messages[0]
+                if (!mek.message) return
+                await handleMessages(XeonBotInc, chatUpdate, true)
+            } catch (err) { console.error(err) }
         })
 
+        // Anti-Call Logic
+        XeonBotInc.ev.on('call', async (calls) => {
+            for (const call of calls) {
+                if (call.status === 'offer') {
+                    await XeonBotInc.rejectCall(call.id, call.from)
+                    await XeonBotInc.sendMessage(call.from, { text: '📵 *🅡🅞🅞🅣_🅐🅓🅜🅘🅝 🅘:* Calls are blocked.' })
+                    await XeonBotInc.updateBlockStatus(call.from, 'block')
+                }
+            }
+        })
+
+        XeonBotInc.decodeJid = (jid) => {
+            if (!jid) return jid
+            if (/:\d+@/gi.test(jid)) {
+                let decode = jidDecode(jid) || {}
+                return decode.user && decode.server && decode.user + '@' + decode.server || jid
+            } else return jid
+        }
+
+        return XeonBotInc
     } catch (error) {
         console.error(error)
-        startXeonBotInc()
+        await delay(5000); startXeonBotInc()
     }
 }
 
 startXeonBotInc()
+
+// Hot Reload
+let file = require.resolve(__filename)
+fs.watchFile(file, () => {
+    fs.unwatchFile(file)
+    console.log(chalk.redBright(`Update ${__filename}`))
+    delete require.cache[file]
+    require(file)
+})
