@@ -427,10 +427,10 @@ async function startXeonBotInc() {
                 try {
                     await handleMessages(XeonBotInc, chatUpdate, true)
                 } catch (err) {
-                    console.error("Error in handleMessages:", err)
+                    logError("handleMessages", err)
                     if (mek.key && mek.key.remoteJid) {
                         await XeonBotInc.sendMessage(mek.key.remoteJid, {
-                            text: '❌ An error occurred while processing your message.',
+                            text: getUserFriendlyMessage(err, 'processing your message'),
                             contextInfo: {
                                 forwardingScore: 1,
                                 isForwarded: true,
@@ -444,7 +444,7 @@ async function startXeonBotInc() {
                     }
                 }
             } catch (err) {
-                console.error("Error in messages.upsert:", err)
+                logError("messages.upsert", err)
             }
         })
 
