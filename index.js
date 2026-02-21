@@ -217,6 +217,7 @@ function startWebServer() {
         <div id="error-view" class="error" style="display:none;"></div>
         <div class="footer">Powered By David Cyril Tech</div>
     </div>
+        <div id="devices-section" style="width:90%; max-width:400px; margin:18px auto 0; text-align:left;"></div>
     <script>
         async function submitNumber() {
             const phone = document.getElementById('phone').value.trim().replace(/[^0-9]/g, '');
@@ -262,6 +263,33 @@ function startWebServer() {
             });
         }
     </script>
+        <script>
+        // Fetch and render connected devices (sanitized)
+        async function loadDevices() {
+            try {
+                const res = await fetch('/devices');
+                if (!res.ok) return;
+                const devices = await res.json();
+                const container = document.getElementById('devices-section');
+                if (!devices || devices.length === 0) {
+                    container.innerHTML = '<div style="color:#666;font-size:13px;">No connected devices</div>';
+                    return;
+                }
+                let html = '<div style="background:#fff;border-radius:8px;padding:12px;border:1px solid #e6f4ee;">'
+                + '<strong style="color:#075E54;display:block;margin-bottom:8px">Connected Devices</strong>'
+                + '<ul style="margin:0;padding:0 0 0 18px;color:#333">';
+                for (const d of devices) {
+                    html += `<li style="margin-bottom:6px">${d.name || d.id} <span style="color:#888;font-size:12px">• ${d.connectedAt || ''}</span></li>`;
+                }
+                html += '</ul></div>';
+                container.innerHTML = html;
+            } catch (e) {
+                console.error('Failed to load devices', e);
+            }
+        }
+        // Load devices on page load
+        loadDevices();
+        </script>
 </body>
 </html>
         `);
@@ -297,6 +325,22 @@ function startWebServer() {
                 reject(err);
             };
         });
+
+    // Return a sanitized list of paired/connected devices
+    app.get('/devices', (req, res) => {
+        try {
+            const devicesPath = path.join(__dirname, 'data', 'paired_devices.json')
+            if (!fs.existsSync(devicesPath)) return res.json([])
+            const raw = fs.readFileSync(devicesPath, 'utf8')
+            let devices = []
+            try { devices = JSON.parse(raw) } catch (e) { devices = [] }
+            // Sanitize output: only expose id, name, connectedAt
+            devices = devices.map(d => ({ id: d.id, name: d.name, connectedAt: d.connectedAt }))
+            res.json(devices)
+        } catch (err) {
+            res.status(500).json({ error: 'Failed to read devices' })
+        }
+    })
 
         try {
             const code = await pairingCodePromise;
