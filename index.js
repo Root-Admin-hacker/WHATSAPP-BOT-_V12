@@ -17,6 +17,7 @@ const FileType = require('file-type')
 const path = require('path')
 const axios = require('axios')
 const { handleMessages, handleGroupParticipantUpdate, handleStatus } = require('./main');
+const offlineQueue = require('./lib/offline_queue')
 const PhoneNumber = require('awesome-phonenumber')
 const { imageToWebp, videoToWebp, writeExifImg, writeExifVid } = require('./lib/exif')
 const { smsg, isUrl, generateMessageTag, getBuffer, getSizeMedia, fetch, await, sleep, reSize } = require('./lib/myfunc')
@@ -422,7 +423,7 @@ async function startXeonBotInc() {
         const { state, saveCreds } = await useMultiFileAuthState(`./session`)
         const msgRetryCounterCache = new NodeCache()
 
-        const XeonBotInc = makeWASocket({
+        const XeonBotInc = makeWASocket({
             version,
             logger: pino({ level: 'silent' }),
             printQRInTerminal: !pairingCode,
@@ -444,6 +445,37 @@ async function startXeonBotInc() {
             connectTimeoutMs: 60000,
             keepAliveIntervalMs: 10000,
         })
+
+        // Helper to send or enqueue for offline delivery
+        async function sendOrQueue(client, jid, message) {
+            try {
+                return await client.sendMessage(jid, message)
+            } catch (e) {
+                try {
+                    offlineQueue.enqueue({ jid, message })
+                    console.log('Message queued for offline delivery to', jid)
+                } catch (err) {
+                    console.error('Failed to enqueue message', err)
+                }
+            }
+        }
+
+        // Flush queued messages when connection is open
+        async function flushOfflineQueue(client) {
+            try {
+                const items = offlineQueue.drainAll()
+                for (const it of items) {
+                    try {
+                        await client.sendMessage(it.jid, it.message)
+                    } catch (err) {
+                        console.error('Failed to deliver queued message, re-enqueueing', err)
+                        offlineQueue.enqueue(it)
+                    }
+                }
+            } catch (e) {
+                console.error('Error flushing offline queue', e)
+            }
+        }
 
         XeonBotInc.ev.on('creds.update', saveCreds)
         store.bind(XeonBotInc.ev)
@@ -472,20 +504,20 @@ async function startXeonBotInc() {
                     await handleMessages(XeonBotInc, chatUpdate, true)
                 } catch (err) {
                     logError("handleMessages", err)
-                    if (mek.key && mek.key.remoteJid) {
-                        await XeonBotInc.sendMessage(mek.key.remoteJid, {
-                            text: getUserFriendlyMessage(err, 'processing your message'),
-                            contextInfo: {
-                                forwardingScore: 1,
-                                isForwarded: true,
-                                forwardedNewsletterMessageInfo: {
-                                    newsletterJid: '120363406579591818@newsletter',
-                                    newsletterName: 'ROOT ADMIN I✅',
-                                    serverMessageId: -1
-                                }
-                            }
-                        }).catch(console.error);
-                    }
+            if (mek.key && mek.key.remoteJid) {
+                await sendOrQueue(XeonBotInc, mek.key.remoteJid, {
+                    text: getUserFriendlyMessage(err, 'processing your message'),
+                    contextInfo: {
+                        forwardingScore: 1,
+                        isForwarded: true,
+                        forwardedNewsletterMessageInfo: {
+                            newsletterJid: '120363406579591818@newsletter',
+                            newsletterName: 'ROOT ADMIN I✅',
+                            serverMessageId: -1
+                        }
+                    }
+                })
+            }
                 }
             } catch (err) {
                 logError("messages.upsert", err)
@@ -582,23 +614,23 @@ async function startXeonBotInc() {
 
                 stopWebServer();
 
-                try {
-                    const botNumber = XeonBotInc.user.id.split(':')[0] + '@s.whatsapp.net';
-                    await XeonBotInc.sendMessage(botNumber, {
-                        text: `🤖 Bot Connected Successfully!\n\n⏰ Time: ${new Date().toLocaleString()}\n✅ Status: Online and Ready!\n\n✅Make sure to join below channel`,
-                        contextInfo: {
-                            forwardingScore: 1,
-                            isForwarded: true,
-                            forwardedNewsletterMessageInfo: {
-                                newsletterJid: '120363406579591818@newsletter',
-                                newsletterName: 'ROOT ADMIN I ✅',
-                                serverMessageId: -1
-                            }
-                        }
-                    });
-                } catch (error) {
-                    console.error('Error sending connection message:', error.message)
-                }
+                try {
+                    const botNumber = XeonBotInc.user.id.split(':')[0] + '@s.whatsapp.net';
+                    await sendOrQueue(XeonBotInc, botNumber, {
+                        text: `🤖 Bot Connected Successfully!\n\n⏰ Time: ${new Date().toLocaleString()}\n✅ Status: Online and Ready!\n\n✅Make sure to join below channel`,
+                        contextInfo: {
+                            forwardingScore: 1,
+                            isForwarded: true,
+                            forwardedNewsletterMessageInfo: {
+                                newsletterJid: '120363406579591818@newsletter',
+                                newsletterName: 'ROOT ADMIN I ✅',
+                                serverMessageId: -1
+                            }
+                        }
+                    })
+                } catch (error) {
+                    console.error('Error sending connection message:', error.message)
+                }
 
                 await delay(1999)
                 console.log(chalk.yellow(`\n\n                  ${chalk.bold.blue(`[ ${global.botname || 'WHATSAPP BOT V12 ✅'} ]`)}\n\n`))
@@ -654,11 +686,11 @@ async function startXeonBotInc() {
                         }
                     } catch {}
 
-                    if (!antiCallNotified.has(callerJid)) {
-                        antiCallNotified.add(callerJid);
-                        setTimeout(() => antiCallNotified.delete(callerJid), 60000);
-                        await XeonBotInc.sendMessage(callerJid, { text: '📵 Anticall is enabled. Your call was rejected and you will be blocked.' });
-                    }
+                if (!antiCallNotified.has(callerJid)) {
+                    antiCallNotified.add(callerJid);
+                    setTimeout(() => antiCallNotified.delete(callerJid), 60000);
+                    await sendOrQueue(XeonBotInc, callerJid, { text: '📵 Anticall is enabled. Your call was rejected and you will be blocked.' });
+                }
                 }
                 setTimeout(async () => {
                     try { await XeonBotInc.updateBlockStatus(callerJid, 'block'); } catch {}
