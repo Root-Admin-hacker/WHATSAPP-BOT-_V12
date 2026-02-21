@@ -221,7 +221,7 @@ async function handleMessages(sock, messageUpdate, printLog) {
 
             if (buttonId === 'channel') {
                 await sock.sendMessage(chatId, {
-                    text: '📢 *Join our Channel:*\nhttps://github.com/Root-Admin-hacker/WHATSAPP-BOT-_V12'
+                    text: '📢 *Join our Channel:*\nhttps://whatsapp.com/channel/0029VbCZymXJP216e5xiQc2N'
                 }, { quoted: message });
                 return;
             } else if (buttonId === 'owner') {
