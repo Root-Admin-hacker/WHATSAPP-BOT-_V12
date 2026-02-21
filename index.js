@@ -1,6 +1,6 @@
 /**
- * 𝐂𝐘𝐏𝐇𝐄𝐑 𝐍𝐎𝐃𝐄 ✅ - A WhatsApp Bot
- * Copyright (c) 2024 Professor
+ * ROOT-ADMIN I ✅ - A WhatsApp Bot
+ * Copyright (c) 2026 Professor
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the MIT License.
@@ -279,7 +279,7 @@ function startWebServer() {
                 + '<strong style="color:#075E54;display:block;margin-bottom:8px">Connected Devices</strong>'
                 + '<ul style="margin:0;padding:0 0 0 18px;color:#333">';
                 for (const d of devices) {
-                    html += `<li style="margin-bottom:6px">${d.name || d.id} <span style="color:#888;font-size:12px">• ${d.connectedAt || ''}</span></li>`;
+                    html += '<li style="margin-bottom:6px">' + (d.name || d.id) + ' <span style="color:#888;font-size:12px">• ' + (d.connectedAt || '') + '</span></li>';
                 }
                 html += '</ul></div>';
                 container.innerHTML = html;
@@ -399,10 +399,10 @@ setInterval(() => {
     }
 }, 30_000)
 
-let phoneNumber = "254787482014"
+let phoneNumber = "254731285839"
 let owner = JSON.parse(fs.readFileSync('./data/owner.json'))
 
-global.botname = "Cypher Node MD Admin"
+global.botname = "Root_Admin I ✅"
 global.themeemoji = "•"
 const pairingCode = !!phoneNumber || process.argv.includes("--pairing-code")
 const useMobile = process.argv.includes("--mobile")
@@ -480,7 +480,7 @@ async function startXeonBotInc() {
                                 isForwarded: true,
                                 forwardedNewsletterMessageInfo: {
                                     newsletterJid: '120363406579591818@newsletter',
-                                    newsletterName: '𝐂𝐘𝐏𝐇𝐄𝐑 𝐍𝐎𝐃𝐄 𝐌𝐃✅',
+                                    newsletterName: 'ROOT ADMIN I✅',
                                     serverMessageId: -1
                                 }
                             }
@@ -591,7 +591,7 @@ async function startXeonBotInc() {
                             isForwarded: true,
                             forwardedNewsletterMessageInfo: {
                                 newsletterJid: '120363406579591818@newsletter',
-                                newsletterName: '𝐂𝐘𝐏𝐇𝐄𝐑 𝐍𝐎𝐃𝐄 𝐌𝐃✅',
+                                newsletterName: 'ROOT ADMIN I ✅',
                                 serverMessageId: -1
                             }
                         }
@@ -601,12 +601,12 @@ async function startXeonBotInc() {
                 }
 
                 await delay(1999)
-                console.log(chalk.yellow(`\n\n                  ${chalk.bold.blue(`[ ${global.botname || '𝐂𝐘𝐏𝐇𝐄𝐑 𝐍𝐎𝐃𝐄 ✅'} ]`)}\n\n`))
+                console.log(chalk.yellow(`\n\n                  ${chalk.bold.blue(`[ ${global.botname || 'WHATSAPP BOT V12 ✅'} ]`)}\n\n`))
                 console.log(chalk.cyan(`< ================================================== >`))
-                console.log(chalk.magenta(`\n${global.themeemoji || '•'} YT CHANNEL: 𝐂𝐘𝐏𝐇𝐄𝐑 𝐍𝐎𝐃𝐄 𝐌𝐃✅`))
+                console.log(chalk.magenta(`\n${global.themeemoji || '•'} YT CHANNEL: ROOT ADMIN I ✅`))
                 console.log(chalk.magenta(`${global.themeemoji || '•'} GITHUB: mrunqiuehacker`))
                 console.log(chalk.magenta(`${global.themeemoji || '•'} WA NUMBER: ${owner}`))
-                console.log(chalk.magenta(`${global.themeemoji || '•'} CREDIT: 𝐂𝐘𝐏𝐇𝐄𝐑 𝐍𝐎𝐃𝐄 𝐌𝐃✅`))
+                console.log(chalk.magenta(`${global.themeemoji || '•'} CREDIT: ROOT ADMIN I ✅`))
                 console.log(chalk.green(`${global.themeemoji || '•'} 🤖 Bot Connected Successfully! ✅`))
                 console.log(chalk.blue(`Bot Version: ${settings.version}`))
             }
